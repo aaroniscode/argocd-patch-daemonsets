@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: node-problem-detector
+spec:
+  template:
+    spec:
+      tolerations:
+      - effect: NoSchedule
+        operator: Exists
+      - key: example.com/lock
+        effect: NoExecute
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: nebius-dcgm
+spec:
+  template:
+    spec:
+      tolerations:
+      - effect: NoSchedule
+        key: nvidia.com/gpu
+        operator: Exists
+      - key: example.com/lock
+        effect: NoExecute
